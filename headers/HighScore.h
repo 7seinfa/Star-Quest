@@ -11,6 +11,18 @@
 #define HIGHSCORE_H
 
 
+class HighScore
+{
+private:
+    int score;
+    int highScore;
+public:
+    int getScore();
+    int getHighScore();
+    void updateScore(int points);
+    bool checkNewHighScore();
+    void resetScore();
+};
 
 #endif // HIGHSCORE_H
 
