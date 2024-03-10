@@ -3,8 +3,7 @@
 #include <QScreen>
 
 Background::Background(QPixmap sprMap, int x, int y, int width, int height, QWidget* parent)
-        : Object(sprMap, x, y, width, height, parent){
-};
+        : Object(sprMap, x, y, width, height, parent){};
 
 void Background::update() {
     setX(getX()-1);

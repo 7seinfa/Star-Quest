@@ -4,7 +4,9 @@
 
 #include <QMainWindow>
 #include <QWidget>
+#include <vector>
 #include "headers/Background.h"
+#include "headers/Obstacle.h"
 
 namespace Ui {
     class MainWindow;
@@ -20,6 +22,11 @@ private slots:
     void update();
 private:
     Background* background;
+    std::vector<Obstacle*> obstacles;
+    int firstObstacleX;
+    int distBetweenObstacles;
+    int obstacleGap;
+    int obstacleWidth;
 };
 
 #endif // MAINWINDOW_H

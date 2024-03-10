@@ -29,3 +29,11 @@ void Object::setY(int newY){
     y = newY;
     setGeometry(getX(),y,getWidth(),getHeight());
 }
+void Object::setWidth(int newWidth){
+    width = newWidth;
+    setGeometry(getX(),getY(),newWidth,getHeight());
+}
+void Object::setHeight(int newHeight){
+    height = newHeight;
+    setGeometry(getX(),getY(),getWidth(),newHeight);
+}
