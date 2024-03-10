@@ -5,7 +5,8 @@
 
 class Background : public Object {
 public:
-    Background(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent = nullptr);
+    Background(QPixmap sprMap, int x, int y, int width, int height, int timerSpeed, QWidget *parent = nullptr);
+private:
     void update();
 };
 

@@ -27,13 +27,13 @@ MainWindow::MainWindow(QWidget *parent)
     srand(time(NULL));
     QPixmap bg("img/background.png");
     background = new Background(bg, 0, 0, QGuiApplication::screens()[0]->availableGeometry().width()*2,
-        QGuiApplication::screens()[0]->availableGeometry().height(), this);
+        QGuiApplication::screens()[0]->availableGeometry().height(), 25, this);
     
     
     //create obstacles
-    firstObstacleX=300;
-    distBetweenObstacles=300;
-    obstacleGap=250;
+    firstObstacleX=600;
+    distBetweenObstacles=340;
+    obstacleGap=280;
     obstacleWidth=100;
     QPixmap obT("img/obstacleTop.png");
     QPixmap obB("img/obstacleBot.png");
@@ -47,15 +47,17 @@ MainWindow::MainWindow(QWidget *parent)
     //run update function every millisecond
     QTimer *timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(update()));
-    timer->start(1);
+    timer->start(10);
 
     QPixmap spaceshipPixmap("img/spaceship.png");
     int initialX = 100; // X position
     int initialY = QGuiApplication::screens()[0]->availableGeometry().height() / 2; // Y position
-    int spaceshipWidth = 100; // Spaceship width
-    int spaceshipHeight = 80; // Spaceship height
+    int spaceshipWidth = 200; // Spaceship width
+    int spaceshipHeight = 160; // Spaceship height
+    qreal gravity = 1.0;
+    qreal jump = 18;
     
-    player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, this);
+    player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, gravity, jump, this);
 }
 
 void MainWindow::keyPressEvent(QKeyEvent *event) {
@@ -72,10 +74,10 @@ void MainWindow::keyReleaseEvent(QKeyEvent *event) {
 
 //run every millisecond
 void MainWindow::update(){
-    background->update();
+    //background->update();
     for (unsigned int i = 0; i < obstacles.size()/2; i++) {
         obstacles.at(2*i)->update(0);
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
     }
-    player->update();
+    //player->update();
 }

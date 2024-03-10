@@ -1,16 +1,20 @@
 #include "headers/Player.h"
+#include <QTimer>
 
-Player::Player(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent)
-        : CollidableObject(sprMap, x, y, width, height, parent), yVelocity(0), gravityStrength(0.5), isSpacePressed(false) {
-    setWindowFlags(Qt::WindowStaysOnTopHint);
+Player::Player(QPixmap sprMap, int x, int y, int width, int height, qreal gravity, qreal yJump, QWidget *parent)
+        : CollidableObject(sprMap, x, y, width, height, parent), yVelocity(0), gravityStrength(gravity), 
+        jumpStrength(yJump), isSpacePressed(false) {
     raise();
-    show();
+    
+    QTimer *timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Player::update);
+    timer->start(100);
 }
 
 void Player::jump() {
     // Trigger a jump if space is not pressed
     if (!isSpacePressed) {
-        yVelocity = -10;  // Strength of jump
+        yVelocity = -jumpStrength;  // Strength of jump
         isSpacePressed = true;
     }
 }
@@ -29,8 +33,7 @@ void Player::keyReleaseEvent(QKeyEvent *event) {
 
 void Player::update() {
     // Gravity 
-    yVelocity += gravityStrength;  
+    if (yVelocity+gravityStrength <= jumpStrength) yVelocity += gravityStrength;  
     setY(getY() + yVelocity);
     raise();
-    show();
 }

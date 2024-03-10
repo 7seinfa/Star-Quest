@@ -6,17 +6,17 @@
 
 class Player : public CollidableObject {
 public:
-    Player(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent = nullptr);
+    Player(QPixmap sprMap, int x, int y, int width, int height, qreal gravity, qreal yJump, QWidget *parent = nullptr);
 
     void jump();
-    void update(); 
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
-
 private:
     qreal yVelocity;
     qreal gravityStrength;
+    qreal jumpStrength;
     bool isSpacePressed;
+    void update(); 
 };
 
 #endif // PLAYER_H

@@ -13,9 +13,9 @@ private:
     int y;
     int width;
     int height;
+    void update();
 public:
     Object(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent = nullptr);
-    void update();
     int getX(); 
     int getY(); 
     int getWidth(); 
