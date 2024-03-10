@@ -10,8 +10,11 @@
 
 //includes
 #include "headers/Background.h"
+#include "headers/Player.h"
 #include <QTimer>
 #include <iostream>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QGuiApplication>
 #include <QScreen>
 #include <time.h>
@@ -19,13 +22,13 @@
 // the main window of the game
 MainWindow::MainWindow(QWidget *parent)
   : QMainWindow(parent)
-{
-    srand(time(NULL)); //random seed for the random map later
-
-    //create background object
+{  
+    
+    srand(time(NULL));
     QPixmap bg("img/background.png");
     background = new Background(bg, 0, 0, QGuiApplication::screens()[0]->availableGeometry().width()*2,
         QGuiApplication::screens()[0]->availableGeometry().height(), this);
+    
     
     //create obstacles
     firstObstacleX=300;
@@ -45,6 +48,26 @@ MainWindow::MainWindow(QWidget *parent)
     QTimer *timer = new QTimer(this);
     QObject::connect(timer, SIGNAL(timeout()), this, SLOT(update()));
     timer->start(1);
+
+    QPixmap spaceshipPixmap("img/spaceship.png");
+    int initialX = 100; // X position
+    int initialY = QGuiApplication::screens()[0]->availableGeometry().height() / 2; // Y position
+    int spaceshipWidth = 100; // Spaceship width
+    int spaceshipHeight = 80; // Spaceship height
+    
+    player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, this);
+}
+
+void MainWindow::keyPressEvent(QKeyEvent *event) {
+    if (player) {
+        player->keyPressEvent(event);
+    }
+}
+
+void MainWindow::keyReleaseEvent(QKeyEvent *event) {
+    if (player) {
+        player->keyReleaseEvent(event);
+    }
 }
 
 //run every millisecond
@@ -54,4 +77,5 @@ void MainWindow::update(){
         obstacles.at(2*i)->update(0);
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
     }
+    player->update();
 }
