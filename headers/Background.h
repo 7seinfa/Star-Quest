@@ -4,7 +4,7 @@
 #include "headers/Object.h"
 
 class Background : public Object {
-    public:
+public:
     Background(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent = nullptr);
     void update();
 };

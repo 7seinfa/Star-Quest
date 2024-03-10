@@ -4,8 +4,6 @@
 
 Background::Background(QPixmap sprMap, int x, int y, int width, int height, QWidget* parent)
         : Object(sprMap, x, y, width, height, parent){
-    setScaledContents(true);
-    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 };
 
 void Background::update() {

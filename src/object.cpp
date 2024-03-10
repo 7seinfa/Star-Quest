@@ -1,9 +1,11 @@
 #include "headers/Object.h"
 
 Object::Object(QPixmap sprMap, int x, int y, int width, int height, QWidget* parent)
-: x(x), y(y), width(width), height(height), QLabel(parent) {
+: QLabel(parent), x(x), y(y), width(width), height(height) {
     setPixmap(sprMap);
     setGeometry(x,y,width,height);
+    setScaledContents(true);
+    setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
 
 int Object::getX() {
