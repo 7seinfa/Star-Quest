@@ -7,8 +7,6 @@
 #include "headers/Game.h"
 
 //includes
-#include "headers/Background.h"
-#include "headers/Player.h"
 #include <QTimer>
 #include <iostream>
 #include <QGraphicsScene>
@@ -47,6 +45,15 @@ Game::Game(QWidget *parent)
         obstacles.push_back(obTop);
         obstacles.push_back(obBot);
     }
+
+    //create the scoreing function
+    //currently clears on exit
+    //QLCDNumber *scoreDisplay = new QLCDNumber(3, parent);
+    //scoreDisplay->resize(200, 100);
+    //scoreDisplay->raise();
+    //scoreDisplay->display("010");
+    //scoreDisplay->move(0, 0);
+    score = new HighScore(this);
 
     //run update function every millisecond
     QTimer *timer = new QTimer(this);
@@ -101,6 +108,9 @@ void Game::update(){
     for (unsigned int i = 0; i < obstacles.size()/2; i++) {
         obstacles.at(2*i)->update(0);
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
+        if (obstacles.at(2*i)->getX() + (obstacles.at(2*i)->getWidth() / 2) == player->getX()) {
+            score->updateScore(score->getScore()+1);
+        }
     }
     //player->update();
 }

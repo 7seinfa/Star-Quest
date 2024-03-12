@@ -35,7 +35,7 @@ void MainWindow::displayMainMenu(){
     QFont font;
     font.setPointSize(20); // font size of text on screen
 
-    // create the title text "Minesweeper"
+    // create the title text "Star Quest"
     QGraphicsTextItem* titleText = new QGraphicsTextItem(QString("Star Quest"));
     titleText->setFont(font);
     scene->addItem(titleText); // add the title to the scene

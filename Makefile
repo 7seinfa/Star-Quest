@@ -37,7 +37,7 @@ MOVE          = mv -f
 TAR           = tar -cf
 COMPRESS      = gzip -9f
 DISTNAME      = FlappyBird1.0.0
-DISTDIR = /home/hussein/group\ project/.tmp/FlappyBird1.0.0
+DISTDIR = /mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8/.tmp/FlappyBird1.0.0
 LINK          = g++
 LFLAGS        = -Wl,-O1
 LIBS          = $(SUBLIBS) /usr/lib/x86_64-linux-gnu/libQt5Widgets.so /usr/lib/x86_64-linux-gnu/libQt5Gui.so /usr/lib/x86_64-linux-gnu/libQt5Core.so -lGL -lpthread   
@@ -62,7 +62,8 @@ SOURCES       = src/game.cpp \
 		src/player.cpp \
 		src/highscore.cpp moc_Game.cpp \
 		moc_mainwindow.cpp \
-		moc_Object.cpp
+		moc_Object.cpp \
+		moc_HighScore.cpp
 OBJECTS       = game.o \
 		main.o \
 		mainwindow.o \
@@ -74,7 +75,8 @@ OBJECTS       = game.o \
 		highscore.o \
 		moc_Game.o \
 		moc_mainwindow.o \
-		moc_Object.o
+		moc_Object.o \
+		moc_HighScore.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -384,28 +386,34 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp
+compiler_moc_header_make_all: moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp moc_HighScore.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp
+	-$(DEL_FILE) moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp moc_HighScore.cpp
 moc_Game.cpp: headers/Game.h \
 		headers/Background.h \
 		headers/Object.h \
 		headers/Obstacle.h \
 		headers/CollidableObject.h \
+		headers/HighScore.h \
 		headers/Player.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/hussein/group project/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/hussein/group project' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/Game.h -o moc_Game.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/Game.h -o moc_Game.cpp
 
 moc_mainwindow.cpp: headers/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/hussein/group project/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/hussein/group project' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/mainwindow.h -o moc_mainwindow.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/mainwindow.h -o moc_mainwindow.cpp
 
 moc_Object.cpp: headers/Object.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
-	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/hussein/group project/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/hussein/group project' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/Object.h -o moc_Object.cpp
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/Object.h -o moc_Object.cpp
+
+moc_HighScore.cpp: headers/HighScore.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/mnt/c/Users/theo/Documents/repoCS/3307/cloneRepo/group8 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/HighScore.h -o moc_HighScore.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -428,6 +436,7 @@ game.o: src/game.cpp headers/Game.h \
 		headers/Object.h \
 		headers/Obstacle.h \
 		headers/CollidableObject.h \
+		headers/HighScore.h \
 		headers/Player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game.o src/game.cpp
 
@@ -440,6 +449,7 @@ mainwindow.o: src/mainwindow.cpp headers/mainwindow.h \
 		headers/Object.h \
 		headers/Obstacle.h \
 		headers/CollidableObject.h \
+		headers/HighScore.h \
 		headers/Player.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o mainwindow.o src/mainwindow.cpp
 
@@ -475,6 +485,9 @@ moc_mainwindow.o: moc_mainwindow.cpp
 
 moc_Object.o: moc_Object.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Object.o moc_Object.cpp
+
+moc_HighScore.o: moc_HighScore.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_HighScore.o moc_HighScore.cpp
 
 ####### Install
 

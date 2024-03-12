@@ -7,10 +7,15 @@
 // header file
 #include "headers/HighScore.h"
 
-// initializes with 0 score
-HighScore::HighScore() {
+
+// initialize the score display with 0 in score and highscore
+HighScore::HighScore(QWidget *parent) : QLCDNumber(3, parent) {
     score = 0;
     highScore = 0;
+
+    resize(150, 100);
+    display(score);
+
 }
 
 // getter functions for score and highscore
@@ -25,6 +30,7 @@ int HighScore::getHighScore(){
 // setter function for the score
 void HighScore::updateScore(int newScore){
     score = newScore;
+    display(score);
 }
 
 // pseudo-setter function for the highscore

@@ -5,19 +5,20 @@
  */
 
 
-// this header is meant to track the player's score
+// this header is meant to track the player's score, and display it in the top left corner.
 
 #ifndef HIGHSCORE_H
 #define HIGHSCORE_H
+#include <QLCDNumber>
 
-
-class HighScore
+class HighScore : public QLCDNumber
 {
+    Q_OBJECT
 private:
     int score;
     int highScore;
 public:
-    HighScore();
+    HighScore(QWidget *parent = nullptr);
     int getScore();
     int getHighScore();
     void updateScore(int points);

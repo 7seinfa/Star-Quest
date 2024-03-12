@@ -11,6 +11,7 @@
 #include <vector>
 #include "headers/Background.h"
 #include "headers/Obstacle.h"
+#include "headers/HighScore.h"
 #include "headers/Player.h"
 #include "Player.h"
 
@@ -37,6 +38,7 @@ private:
     Background* background;
     Player* player;
     std::vector<Obstacle*> obstacles;
+    HighScore* score;
     int firstObstacleX;
     int distBetweenObstacles;
     int obstacleGap;
