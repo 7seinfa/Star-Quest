@@ -52,16 +52,19 @@ OBJECTS_DIR   = ./
 
 ####### Files
 
-SOURCES       = src/main.cpp \
+SOURCES       = src/game.cpp \
+		src/main.cpp \
 		src/mainwindow.cpp \
 		src/object.cpp \
 		src/background.cpp \
 		src/collidableObject.cpp \
 		src/obstacle.cpp \
 		src/player.cpp \
-		src/highscore.cpp moc_mainwindow.cpp \
+		src/highscore.cpp moc_Game.cpp \
+		moc_mainwindow.cpp \
 		moc_Object.cpp
-OBJECTS       = main.o \
+OBJECTS       = game.o \
+		main.o \
 		mainwindow.o \
 		object.o \
 		background.o \
@@ -69,6 +72,7 @@ OBJECTS       = main.o \
 		obstacle.o \
 		player.o \
 		highscore.o \
+		moc_Game.o \
 		moc_mainwindow.o \
 		moc_Object.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -148,13 +152,15 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/exceptions.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/yacc.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/lex.prf \
-		FlappyBird.pro headers/mainwindow.h \
+		FlappyBird.pro headers/Game.h \
+		headers/mainwindow.h \
 		headers/Object.h \
 		headers/Background.h \
 		headers/CollidableObject.h \
 		headers/Obstacle.h \
 		headers/Player.h \
-		headers/HighScore.h src/main.cpp \
+		headers/HighScore.h src/game.cpp \
+		src/main.cpp \
 		src/mainwindow.cpp \
 		src/object.cpp \
 		src/background.cpp \
@@ -345,8 +351,8 @@ distdir: FORCE
 	@test -d $(DISTDIR) || mkdir -p $(DISTDIR)
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
-	$(COPY_FILE) --parents headers/mainwindow.h headers/Object.h headers/Background.h headers/CollidableObject.h headers/Obstacle.h headers/Player.h headers/HighScore.h $(DISTDIR)/
-	$(COPY_FILE) --parents src/main.cpp src/mainwindow.cpp src/object.cpp src/background.cpp src/collidableObject.cpp src/obstacle.cpp src/player.cpp src/highscore.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents headers/Game.h headers/mainwindow.h headers/Object.h headers/Background.h headers/CollidableObject.h headers/Obstacle.h headers/Player.h headers/HighScore.h $(DISTDIR)/
+	$(COPY_FILE) --parents src/game.cpp src/main.cpp src/mainwindow.cpp src/object.cpp src/background.cpp src/collidableObject.cpp src/obstacle.cpp src/player.cpp src/highscore.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -378,15 +384,20 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_mainwindow.cpp moc_Object.cpp
+compiler_moc_header_make_all: moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_mainwindow.cpp moc_Object.cpp
-moc_mainwindow.cpp: headers/mainwindow.h \
+	-$(DEL_FILE) moc_Game.cpp moc_mainwindow.cpp moc_Object.cpp
+moc_Game.cpp: headers/Game.h \
 		headers/Background.h \
 		headers/Object.h \
 		headers/Obstacle.h \
 		headers/CollidableObject.h \
 		headers/Player.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/hussein/group project/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/hussein/group project' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/Game.h -o moc_Game.cpp
+
+moc_mainwindow.cpp: headers/mainwindow.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include '/home/hussein/group project/moc_predefs.h' -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I'/home/hussein/group project' -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/11 -I/usr/include/x86_64-linux-gnu/c++/11 -I/usr/include/c++/11/backward -I/usr/lib/gcc/x86_64-linux-gnu/11/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include headers/mainwindow.h -o moc_mainwindow.cpp
@@ -412,15 +423,19 @@ compiler_clean: compiler_moc_predefs_clean compiler_moc_header_clean
 
 ####### Compile
 
-main.o: src/main.cpp headers/mainwindow.h \
+game.o: src/game.cpp headers/Game.h \
 		headers/Background.h \
 		headers/Object.h \
 		headers/Obstacle.h \
 		headers/CollidableObject.h \
 		headers/Player.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o game.o src/game.cpp
+
+main.o: src/main.cpp headers/mainwindow.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o main.o src/main.cpp
 
 mainwindow.o: src/mainwindow.cpp headers/mainwindow.h \
+		headers/Game.h \
 		headers/Background.h \
 		headers/Object.h \
 		headers/Obstacle.h \
@@ -444,11 +459,16 @@ obstacle.o: src/obstacle.cpp headers/Obstacle.h \
 		headers/Object.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o obstacle.o src/obstacle.cpp
 
-player.o: src/player.cpp headers/Player.h
+player.o: src/player.cpp headers/Player.h \
+		headers/CollidableObject.h \
+		headers/Object.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o player.o src/player.cpp
 
 highscore.o: src/highscore.cpp headers/HighScore.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o highscore.o src/highscore.cpp
+
+moc_Game.o: moc_Game.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_Game.o moc_Game.cpp
 
 moc_mainwindow.o: moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_mainwindow.o moc_mainwindow.cpp

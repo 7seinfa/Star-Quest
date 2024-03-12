@@ -1,42 +1,53 @@
-#pragma once
+/* Author: Laila El attar
+ * Description: Game header defines/declares drectives, private, and public attributes and methods used by class game.cpp.
+ * Date: February 6th, 2024
+*/
+
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+
+// directives required for program operation
 #include <QMainWindow>
+#include <QGridLayout>
+#include <QLabel>
+#include <QPushButton>
+#include <QLineEdit>
+#include <QDebug>
+#include <QApplication>
+#include <QGraphicsView>
+#include <QGraphicsScene>
+#include <QGraphicsTextItem>
+#include <QString>
 #include <QWidget>
-#include <vector>
-#include "headers/Background.h"
-#include "headers/Obstacle.h"
-#include "headers/Player.h"
-#include "Player.h"
+#include <QGraphicsProxyWidget>
 
-namespace Ui {
-    class MainWindow;
-}
- 
-// the main window of the game
-class MainWindow : public QMainWindow
-{
+class MainWindow: public QGraphicsView{
     Q_OBJECT
-public:
-    explicit MainWindow(QWidget *parent = nullptr);
 
-// handle key events
-protected:
-    void keyPressEvent(QKeyEvent *event) override; 
-    void keyReleaseEvent(QKeyEvent *event) override; 
+public:
+    // public constructor
+    MainWindow(QWidget* parent=NULL);
+
+    // public methods
+    void displayMainMenu();
+
+    // public attributes
+    QGraphicsScene* scene;
 
 private slots:
-    void update();
+    // private methods
+    void handlePlayButton();
+    void handleQuitButton();
 
 private:
-    Background* background;
-    Player* player;
-    std::vector<Obstacle*> obstacles;
-    int firstObstacleX;
-    int distBetweenObstacles;
-    int obstacleGap;
-    int obstacleWidth;
+    // private attributes
+    QPushButton *playButton;
+    QPushButton *quitButton;
+    QPushButton *soundButton;
+
+
 };
 
 #endif // MAINWINDOW_H
+

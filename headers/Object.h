@@ -1,3 +1,8 @@
+/* Author: Hussein Abdallah
+ * Description: Object header defines/declares drectives, private, and public attributes and methods used by class object.cpp.
+ * Date: March 11, 2024
+*/
+
 #pragma once
 #ifndef OBJECT_H
 #define OBJECT_H

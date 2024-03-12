@@ -1,3 +1,8 @@
+/* Author: Hussein Abdallah
+ * Description: Obstacle header defines/declares drectives, private, and public attributes and methods used by class obstacle.cpp.
+ * Date: March 11, 2024
+*/
+
 #pragma once
 #ifndef OBSTACLE_H
 #define OBSTACLE_H
