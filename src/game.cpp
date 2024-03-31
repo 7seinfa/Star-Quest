@@ -63,10 +63,10 @@ Game::Game(QWidget *parent)
     QPixmap spaceshipPixmap("img/spaceship.png");
     int initialX = 100; // X position
     int initialY = QGuiApplication::screens()[0]->availableGeometry().height() / 2; // Y position
-    int spaceshipWidth = 200; // Spaceship width
-    int spaceshipHeight = 160; // Spaceship height
+    int spaceshipWidth = 100; // Spaceship width
+    int spaceshipHeight = 80; // Spaceship height
     qreal gravity = 1.0;
-    qreal jump = 18;
+    qreal jump = 15;
     
     player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, gravity, jump, this);
 }
@@ -110,6 +110,13 @@ void Game::update(){
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
         if (obstacles.at(2*i)->getX() + (obstacles.at(2*i)->getWidth() / 2) == player->getX()) {
             score->updateScore(score->getScore()+1);
+        }
+
+        if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2*i))) || player->collidesWith(dynamic_cast<Object*>(obstacles.at(2*i+1)))
+            || player->getY() > QGuiApplication::screens()[0]->availableGeometry().height()
+            || player->getY() + player->getHeight() < 0
+        ) {
+            close();
         }
     }
     //player->update();

@@ -11,7 +11,7 @@
 class CollidableObject : public Object {
 public:
     CollidableObject(QPixmap sprMap, int x, int y, int width, int height, QWidget *parent = nullptr);
-    bool collidesWith (Object otherObject);
+    bool collidesWith (Object* otherObject);
 private:
     void update();
 };

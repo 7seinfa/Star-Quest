@@ -21,3 +21,13 @@
  */
 CollidableObject::CollidableObject(QPixmap sprMap, int x, int y, int width, int height, QWidget* parent)
         : Object(sprMap, x, y, width, height, parent){};
+
+
+bool CollidableObject::collidesWith(Object* otherObject) {
+        if (getX()+getWidth() >= otherObject->getX() && getX() <= otherObject->getX() + otherObject->getWidth() &&
+                getY()+getHeight() >= otherObject->getY() && getY() <= otherObject->getY() + otherObject->getHeight()) {
+
+            return true;            
+        }
+        return false;
+}
