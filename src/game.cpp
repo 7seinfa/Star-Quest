@@ -114,11 +114,13 @@ void Game::update(){
             score->updateScore(score->getScore()+1);
         }
 
-        if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2*i))) || player->collidesWith(dynamic_cast<Object*>(obstacles.at(2*i+1)))
-            || player->getY() > QGuiApplication::screens()[0]->availableGeometry().height()
-            || player->getY() + player->getHeight() < 0
-        ) {
-            close();
+        if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i))) || 
+            player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i + 1))) || 
+            player->getY() > QGuiApplication::screens()[0]->availableGeometry().height() || 
+            player->getY() + player->getHeight() < 0) {
+            
+            gameOver(); 
+            return;
         }
     }
     //player->update();
