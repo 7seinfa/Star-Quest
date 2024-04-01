@@ -49,12 +49,6 @@ Game::Game(QWidget *parent)
     }
 
     //create the scoreing function
-    //currently clears on exit
-    //QLCDNumber *scoreDisplay = new QLCDNumber(3, parent);
-    //scoreDisplay->resize(200, 100);
-    //scoreDisplay->raise();
-    //scoreDisplay->display("010");
-    //scoreDisplay->move(0, 0);
     score = new HighScore(this);
 
     //run update function every millisecond
@@ -108,12 +102,16 @@ void Game::keyReleaseEvent(QKeyEvent *event) {
 void Game::update(){
     //background->update();
     for (unsigned int i = 0; i < obstacles.size()/2; i++) {
+        // update obstacles
         obstacles.at(2*i)->update(0);
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
+
+        // update player score (if passing an obstacle)
         if (obstacles.at(2*i)->getX() + (obstacles.at(2*i)->getWidth() / 2) == player->getX()) {
             score->updateScore(score->getScore()+1);
         }
 
+        // if player hits an obstacle, display the 'game over' screen
         if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i))) || 
             player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i + 1))) || 
             player->getY() > QGuiApplication::screens()[0]->availableGeometry().height() || 
@@ -123,7 +121,6 @@ void Game::update(){
             return;
         }
     }
-    //player->update();
 }
 
 /*
@@ -135,7 +132,19 @@ void Game::update(){
 void Game::gameOver() {
     QMessageBox msgBox;
     msgBox.setWindowTitle("Game Over");
-    msgBox.setText("Game Over! Would you like to restart or exit?");
+
+    QString gameOverText = "Game Over!\nYour Score was: ";
+    int playerScore = score->getScore();
+    gameOverText.append(QString::number(playerScore));
+    if (score->checkNewHighScore()){
+        gameOverText.append("\nNew highscore!");
+    } else{
+        gameOverText.append("\nHighscore: ");
+        gameOverText.append(QString::number(score->getHighScore()));
+    }
+    gameOverText.append("\nWould you like to restart or exit?");
+    msgBox.setText(gameOverText);
+
     QPushButton *restartButton = msgBox.addButton(tr("Restart"), QMessageBox::ActionRole);
     QPushButton *exitButton = msgBox.addButton(tr("Exit"), QMessageBox::ActionRole);
 

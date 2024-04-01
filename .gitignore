@@ -1,6 +1,9 @@
 # Created by https://www.toptal.com/developers/gitignore/api/c,qtcreator,qt
 # Edit at https://www.toptal.com/developers/gitignore?templates=c,qtcreator,qt
 
+## manual ignores ##
+highscore.txt
+
 ### C ###
 # Prerequisites
 *.d
