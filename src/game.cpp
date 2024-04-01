@@ -14,6 +14,8 @@
 #include <QGuiApplication>
 #include <QScreen>
 #include <time.h>
+#include <QMessageBox>
+#include <QPushButton>
 
 /*
  * Function: Game Constructor
@@ -120,4 +122,67 @@ void Game::update(){
         }
     }
     //player->update();
+}
+
+/*
+ * Function: gameOver
+ * Description: Displays a game over popup with options to restart the game or exit.
+ * Parameters: no parameters
+ * Return: no value returned
+ */
+void Game::gameOver() {
+    QMessageBox msgBox;
+    msgBox.setWindowTitle("Game Over");
+    msgBox.setText("Game Over! Would you like to restart or exit?");
+    QPushButton *restartButton = msgBox.addButton(tr("Restart"), QMessageBox::ActionRole);
+    QPushButton *exitButton = msgBox.addButton(tr("Exit"), QMessageBox::ActionRole);
+
+    msgBox.exec(); // Blocks until a button is clicked
+
+    if (msgBox.clickedButton() == restartButton) {
+        restartGame();
+    } else if (msgBox.clickedButton() == exitButton) {
+        this->close(); // Close if "Exit" is chosen
+    }
+}
+
+/*
+ * Function: restartGame
+ * Description: Resets the game to its initial state, including player position and score.
+ * Parameters: no parameters
+ * Return: no value returned
+ */
+void Game::restartGame() {
+    player->setX(100);
+    player->setY(QGuiApplication::screens()[0]->availableGeometry().height() / 2);
+    player->resetVelocity();
+    score->resetScore();
+    resetObstacles();
+}
+
+/*
+ * Function: resetObstacles
+ * Description: iterates through all the obstacles in the game and assigns them
+ * new X positions and random heights to ensure the game is brand new when restarted.
+ * @param None
+ * @return void
+ */
+void Game::resetObstacles() {
+    int firstObstacleX = 600; 
+    int screenHeight = QGuiApplication::screens()[0]->availableGeometry().height();
+    
+    for (unsigned int i = 0; i < obstacles.size() / 2; i++) {
+        int newHeight;
+        int newY;
+        // Reset X position
+        obstacles.at(2 * i)->setX(firstObstacleX + i * (distBetweenObstacles + obstacleWidth));
+        obstacles.at(2 * i + 1)->setX(firstObstacleX + i * (distBetweenObstacles + obstacleWidth));
+
+        // Randomize height of the top obstacle
+        newHeight = rand() % (screenHeight - 300);
+        obstacles.at(2 * i)->setHeight(newHeight);
+        newY = newHeight + obstacleGap;
+        obstacles.at(2 * i + 1)->setY(newY);
+        obstacles.at(2 * i + 1)->setHeight(screenHeight - newY);
+    }
 }

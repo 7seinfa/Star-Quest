@@ -25,12 +25,13 @@ class Game : public QMainWindow
     Q_OBJECT
 public:
     explicit Game(QWidget *parent = nullptr);
-
+    void gameOver();
+    void restartGame();
+    void resetObstacles();
 // handle key events
 protected:
     void keyPressEvent(QKeyEvent *event) override; 
     void keyReleaseEvent(QKeyEvent *event) override; 
-
 private slots:
     void update();
 
