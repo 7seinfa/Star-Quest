@@ -11,6 +11,7 @@ public:
     void jump();
     void keyPressEvent(QKeyEvent *event) override;
     void keyReleaseEvent(QKeyEvent *event) override;
+    void resetVelocity();
 private:
     qreal yVelocity;
     qreal gravityStrength;
