@@ -1,8 +1,12 @@
 /**
- *  Author: Hussein Abdallah
- * Description: obstacle class implements drectives, private, and public attributes and methods declared by Obstacle.h
- * Date: March 11, 2024
-*/
+ * @file Obstacle.cpp
+ * @brief Implementation of the Obstacle class.
+ *
+ * obstacle class implements drectives, private, and public attributes and methods declared by Obstacle.h
+ *
+ * @author Hussein Abdallah
+ * @date March 11, 2024
+ */
 
 #include "headers/Obstacle.h"
 #include <QGuiApplication>
@@ -10,28 +14,28 @@
 #include <stdlib.h>
 
 /**
- * Function: Obstacle Constructor
- * Description: constructor is used to create an obstacle with an image and geometry attributes
- * Parameters:
- *   QPixmap sprMap - the sprite image to display and attach to this Obstacle
- *   int x - the x location of the Obstacle
- *   int y - the y location of the Obstacle
- *   int width - the width of the Obstacle
- *   QWidget *parent - pointer for the parent QWidget for this widget
- * Return: no value returned
+ * @brief Constructor for the Obstacle class.
+ *
+ * Initializes an Obstacle instance with specified image, position, and dimensions. Sets the obstacle's height dynamically if positioned at the top or bottom of the screen.
+ *
+ * @param sprMap Sprite image to display.
+ * @param x Initial x-coordinate of the obstacle.
+ * @param y Initial y-coordinate of the obstacle, used to determine if the obstacle is at the top or bottom.
+ * @param width Width of the obstacle.
+ * @param parent Pointer to the parent QWidget.
  */
 Obstacle::Obstacle(QPixmap sprMap, int x, int y, int width, QWidget* parent)
-        : CollidableObject(sprMap, x, y, width, 0, parent){
+    : CollidableObject(sprMap, x, y, width, 0, parent){
     if (y==0) setHeight(rand()%(QGuiApplication::screens()[0]->availableGeometry().height()-300));
     else setHeight(QGuiApplication::screens()[0]->availableGeometry().height()-y);
 };
 
 /**
- * Function: update
- * Description: update function run periodically according to a QTimer declared in the main Game class
- * Parameters: 
- *   int newY - the new y location of the Object
- * Return: no value returned
+ * @brief Updates the position and size of the obstacle.
+ *
+ * Periodically called to move the obstacle across the screen. Resets the obstacle's position and randomly adjusts its height when it moves off-screen.
+ *
+ * @param newY New y-coordinate for the obstacle, used in adjusting the height for bottom-placed obstacles.
  */
 void Obstacle::update(int newY) {
     setY(newY);

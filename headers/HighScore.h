@@ -1,5 +1,5 @@
-/** header that tracks the player's score and highscore
- *
+/**
+ *  @brief header that tracks the player's score and highscore
  * @author Theo Mulder
  * Last edit: 1 April, 2024
  */

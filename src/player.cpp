@@ -1,44 +1,46 @@
-
 /**
- * Author: Joud Al-lahham
- * Description: Manages the player character's movements, including jumping and gravity, processes input for jump actions through the space bar, and updates the player's vertical position based on velocity and gravity.
- * Date: March 11, 2024
-*/
+ * @file Player.cpp
+ * @brief Manages the player character's movements in the game.
+ *
+ * Implements the Player class functionalities as defined in Player.h. This includes processing input for jump actions,
+ * applying gravity, and updating the player's vertical position. A timer triggers periodic updates to simulate continuous motion.
+ *
+ * @author Joud Al-lahham
+ * @date March 11, 2024
+ */
 
 #include "headers/Player.h"
 #include <QTimer>
 
 /**
- * Description: Constructs a Player object. Initializes a player with a specified sprite, position, size, gravity, and jump strength.
- * Sets up a timer that triggers the update method at regular intervals.
+ * @brief Constructs a Player object with specified parameters.
  *
- * Parameters:
- * @param sprMap Sprite map for the player.
- * @param x Initial X position of player.
- * @param y Initial Y position of player.
- * @param width Width of the player.
- * @param height Height of the player.
- * @param gravity Gravity strength affecting the player.
- * @param yJump Jump strength of the player.
- * @param parent Pointer to the parent widget, defaulting to nullptr.
- * 
- * Return: none
+ * Initializes player attributes including sprite, position, size, gravity, and jump strength. Sets up a timer for periodic updates.
+ *
+ * @param sprMap Sprite image for the player.
+ * @param x Initial X-coordinate of the player.
+ * @param y Initial Y-coordinate of the player.
+ * @param width Width of the player sprite.
+ * @param height Height of the player sprite.
+ * @param gravity Gravity effect on the player.
+ * @param jumpStrength Jump strength of the player.
+ * @param parent Pointer to the parent QWidget.
+ * @return none
  */
 Player::Player(QPixmap sprMap, int x, int y, int width, int height, qreal gravity, qreal yJump, QWidget *parent)
-        : CollidableObject(sprMap, x, y, width, height, parent), yVelocity(0), gravityStrength(gravity), 
-        jumpStrength(yJump), isSpacePressed(false) {
+    : CollidableObject(sprMap, x, y, width, height, parent), yVelocity(0), gravityStrength(gravity),
+    jumpStrength(yJump), isSpacePressed(false) {
     raise();
-    
+
     QTimer *timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Player::update);
     timer->start(100);
 }
 
 /**
- * Name: jump
- * Description: Triggers a jump action for the player. If the space bar is not pressed, applies a negative velocity to the player simulating a jump, and marks the space as pressed.
- * Parameter: none
- * Return: none
+ * @brief Initiates a jump for the player.
+ *
+ * Applies an upward velocity to the player to simulate a jump. The function ensures the jump can only be initiated if the space bar is not already pressed.
  */
 void Player::jump() {
     // Trigger a jump if space is not pressed
@@ -49,10 +51,11 @@ void Player::jump() {
 }
 
 /**
- * Name: keyPressEvent
- * Description: Handles key press events for the player. Specifically looks for space bar presses to initiate a jump.
- * Parameter: event The key event captured by the Qt event system.
- * Return: none
+ * @brief Handles key press events for initiating a jump.
+ *
+ * Listens for space bar presses to trigger a jump. Prevents jump spamming by checking if the key is already pressed.
+ *
+ * @param event Captured key event.
  */
 void Player::keyPressEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Space && !event->isAutoRepeat()) {
@@ -61,10 +64,11 @@ void Player::keyPressEvent(QKeyEvent *event) {
 }
 
 /**
- * Name: keyReleaseEvent
- * Description: Handles key release events for the player.Resets the space bar pressed state, allowing for another jump.
- * Parameter: event The key event captured by the Qt event system.
- * Return: void
+ * @brief Handles key release events.
+ *
+ * Resets the state to allow for subsequent jumps when the space bar is released.
+ *
+ * @param event Captured key event.
  */
 void Player::keyReleaseEvent(QKeyEvent *event) {
     if (event->key() == Qt::Key_Space && !event->isAutoRepeat()) {
@@ -73,22 +77,20 @@ void Player::keyReleaseEvent(QKeyEvent *event) {
 }
 
 /**
- * Name: update
- * Description: Regularly updates the player's state. Applies gravity to the player and updates its Y position.
- * Parameters: none
- * Return: none
+ * @brief Updates the player's state.
+ *
+ * Applies gravity to the player and updates the Y position accordingly. This method is called periodically by a timer.
  */
 void Player::update() {
-    if (yVelocity+gravityStrength <= jumpStrength) yVelocity += gravityStrength;  
+    if (yVelocity+gravityStrength <= jumpStrength) yVelocity += gravityStrength;
     setY(getY() + yVelocity);
     raise();
 }
 
 /**
- * Name: resetVelocity
- * Description: Resets the player's vertical velocity to zero. Used when restarting the game to ensure the player's state is reset.
- * Parameters: none
- * Return: none
+ * @brief Resets the player's vertical velocity.
+ *
+ * Ensures the player's velocity is reset to zero, typically called when restarting the game.
  */
 void Player::resetVelocity() {
     yVelocity = 0;

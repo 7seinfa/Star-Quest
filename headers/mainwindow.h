@@ -1,7 +1,12 @@
-/* Author: Laila El attar
- * Description: Game header defines/declares drectives, private, and public attributes and methods used by class game.cpp.
+/**
+ * @file MainWindow.h
+ * @brief Declares the MainWindow class for the game's main menu interface.
+ *
+ * This header file contains the declaration of the MainWindow class, which manages the game's main menu, including the setup of the UI and handling user interactions.
+ *
+ * @author: Laila El attar
  * Date: February 6th, 2024
-*/
+ */
 
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H

@@ -1,7 +1,11 @@
 /**
- * Author: Hussein Abdallah
- * Description: game class implements drectives, private, and public attributes and methods declared by Game.h
- * Date: March 11, 2024
+ * @file Game.cpp
+ * @brief Implementation of the Game class.
+ *
+ * game class implements drectives, private, and public attributes and methods declared by Game.h
+ *
+ * @author Hussein Abdallah
+ * @date March 11, 2024
  */
 
 //header file for this
@@ -19,22 +23,23 @@
 #include <QPushButton>
 
 /**
- * Function: Game Constructor
- * Description: constructor is used to set up the window of the game
- * Parameters:
- *   QWidget *parent - pointer for the parent QWidget for the Game instance
- * Return: no value returned
+ * @brief Constructs a Game object.
+ *
+ * constructor is used to set up the window of the game
+ *
+ * @param parent The parent QWidget for this instance (optional).
+ * @return none
  */
 Game::Game(QWidget *parent)
-  : QMainWindow(parent)
-{  
-    
+    : QMainWindow(parent)
+{
+
     srand(time(NULL));
     QPixmap bg("img/background.png");
     background = new Background(bg, 0, 0, QGuiApplication::screens()[0]->availableGeometry().width()*2,
-        QGuiApplication::screens()[0]->availableGeometry().height(), 25, this);
-    
-    
+                                QGuiApplication::screens()[0]->availableGeometry().height(), 25, this);
+
+
     //create obstacles
     firstObstacleX=600;
     distBetweenObstacles=340;
@@ -64,16 +69,17 @@ Game::Game(QWidget *parent)
     int spaceshipHeight = 80; // Spaceship height
     qreal gravity = 1.0;
     qreal jump = 15;
-    
+
     player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, gravity, jump, this);
 }
 
 /**
- * Function: keyPressEvent
- * Description: used to receive key presses to notify player
- * Parameters:
- *   QKeyEvent *event - pointer for the event to send to the player
- * Return: no value returned
+ * @brief Handles key press events to control the player.
+ *
+ * used to receive key presses to notify player
+ *
+ * @param event The key event.
+ * @return none
  */
 void Game::keyPressEvent(QKeyEvent *event) {
     if (player) {
@@ -82,11 +88,12 @@ void Game::keyPressEvent(QKeyEvent *event) {
 }
 
 /**
- * Function: keyReleaseEvent
- * Description: used to receive key releases to notify player
- * Parameters:
- *   QKeyEvent *event - pointer for the event to send to the player
- * Return: no value returned
+ * @brief Handles key release events.
+ *
+ * used to receive key releases to notify player
+ *
+ * @param event The key event.
+ * @return none
  */
 void Game::keyReleaseEvent(QKeyEvent *event) {
     if (player) {
@@ -94,17 +101,17 @@ void Game::keyReleaseEvent(QKeyEvent *event) {
     }
 }
 
-/** periodically update relevant attributes
+/**
+ * @brief Periodically updates the game state.
  *
  * runs periodically, time between each run set by QTimer in the constructor function
- *
  * updates the obstacles position
  * updates the player's score (if passing and obstacle)
  * updates the game state (if the player collided with an object) to 'game over'
  *
  * @authors Joud Al-lahham, Theo Mulder, Hussein Abdallah
- * @param no parameters
- * @return no value returned
+ * @param none
+ * @return none
  */
 void Game::update(){
     //background->update();
@@ -120,21 +127,22 @@ void Game::update(){
         }
 
         /// if player hits an obstacle, display the 'game over' screen
-        if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i))) || 
-            player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i + 1))) || 
-            player->getY() > QGuiApplication::screens()[0]->availableGeometry().height() || 
+        if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i))) ||
+            player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i + 1))) ||
+            player->getY() > QGuiApplication::screens()[0]->availableGeometry().height() ||
             player->getY() + player->getHeight() < 0) {
-            
-            gameOver(); 
+
+            gameOver();
             return;
         }
     }
 }
 
+
 /**
- * Function: gameOver
- * Description: Displays a game over popup with options to restart the game or exit.
+ * @brief Displays the game over screen.
  *
+ * Displays a game over popup with options to restart the game or exit.
  * @author Joud Al-lahham
  * @param no parameters
  * @return no value returned
@@ -168,8 +176,9 @@ void Game::gameOver() {
 }
 
 /**
- * Function: restartGame
- * Description: Resets the game to its initial state, including player position and score.
+ * @brief Resets the game to its initial state.
+ *
+ * Resets the game to its initial state, including player position and score.
  *
  * @author Joud Al-lahham
  * @param no parameters
@@ -184,18 +193,18 @@ void Game::restartGame() {
 }
 
 /**
- * Function: resetObstacles
- * Description: iterates through all the obstacles in the game and assigns them
- * new X positions and random heights to ensure the game is brand new when restarted.
+ * @brief Resets obstacles for a new game session.
+ *
+ * Reconfigures obstacles' positions and dimensions for a new game, ensuring variety in the game's challenge.
  *
  * @author Joud Al-lahham
  * @param no parameters
  * @return no value returned
  */
 void Game::resetObstacles() {
-    int firstObstacleX = 600; 
+    int firstObstacleX = 600;
     int screenHeight = QGuiApplication::screens()[0]->availableGeometry().height();
-    
+
     for (unsigned int i = 0; i < obstacles.size() / 2; i++) {
         int newHeight;
         int newY;

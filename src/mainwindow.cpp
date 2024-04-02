@@ -1,14 +1,24 @@
+/**
+ * @file MainWindow.cpp
+ * @brief Main window setup and main menu display for the game.
+ *
+ * This file contains the implementation of the MainWindow class, responsible for setting up the main window of the game and displaying the main menu. It includes functionality to start the game or exit the application through user interaction with the main menu.
+ *
+ * @author Laila El Attar
+ * @date March 01, 2024
+ */
+
 #include "headers/mainwindow.h"
 #include "headers/Game.h"
 
 /**
- * Function: MainWindow Constructor
- * Description: constructor is used to set up the window of the main menu
- * Parameters:
- *   QWidget *parent - pointer for the parent QWidget for the Game instance
- * Return: no value returned
+ * @brief Constructor for MainWindow class.
+ *
+ *constructor is used to set up the window of the main menu *
+ *
+ * @param parent pointer for the parent QWidget for the Game instance
+ * @return none
  */
-
 MainWindow::MainWindow(QWidget *parent) {
 
     // set up the screen by adjusting horizontal and vertical scrolling, and setting a fixed size to the window.
@@ -22,14 +32,13 @@ MainWindow::MainWindow(QWidget *parent) {
     setScene(scene);
 };
 
-
 /**
- * Function: displayMainMenu
- * Description: displays the main menu buttons (play, exit, sound, and store) and connects them to the appropriate functions
- * Parameters: no parameters
- * Return: no value returned, displays buttons on screen
+ * @brief Displays the main menu with buttons for game control.
+ *
+ * Creates and displays buttons like 'Play' and 'Quit' on the main menu, and connects them to their respective slots for handling user actions.
+ * @param none
+ * @return none, displays buttons on screen
  */
-
 void MainWindow::displayMainMenu(){
 
     QFont font;
@@ -66,14 +75,13 @@ void MainWindow::displayMainMenu(){
 
 }
 
-
 /**
- * Function: handlePlayButton
- * Description: begins game by creating an instance of MainWindow class and deleting the current instance of Game (main menu)
- * Parameters: no parameters
- * Return: no value returned, displays main menu
+ * @brief Handles the 'Play' button click event.
+ *
+ * begins game by creating an instance of MainWindow class and deleting the current instance of Game (main menu)
+ * @param none
+ * @return none, displays main menu
  */
-
 void MainWindow::handlePlayButton()
 {
     // close the main menu window and delete instance to avoid memory leak
@@ -87,14 +95,14 @@ void MainWindow::handlePlayButton()
     // delete instance of the game to avoid  memory leak
 }
 
-
 /**
- * Function: handleQuitButton
- * Description: quits game by closing current window and deleting the current instance of main menu
- * Parameters: no parameters
- * Return: no value returned
+ * @brief Handles the 'Quit' button click event.
+ *
+ * quits game by closing current window and deleting the current instance of main menu
+ *
+ * @param none
+ * @return none
  */
-
 void MainWindow::handleQuitButton()
 {
     // close the main menu window and delete instance to avoid memory leak

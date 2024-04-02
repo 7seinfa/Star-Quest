@@ -1,3 +1,10 @@
+/**
+ * @file Player.h
+ * @brief Defines the Player class, which handles player movements and interactions in the game.
+ *
+ * The Player class extends CollidableObject to include specific functionalities for player control, such as jumping and responding to key events. It incorporates physics elements like gravity and velocity for more dynamic movements.
+ */
+
 #ifndef PLAYER_H
 #define PLAYER_H
 
@@ -17,7 +24,7 @@ private:
     qreal gravityStrength;
     qreal jumpStrength;
     bool isSpacePressed;
-    void update(); 
+    void update();
 };
 
 #endif // PLAYER_H
