@@ -1,7 +1,7 @@
 #include "headers/mainwindow.h"
 #include "headers/Game.h"
 
-/*
+/**
  * Function: MainWindow Constructor
  * Description: constructor is used to set up the window of the main menu
  * Parameters:
@@ -23,7 +23,7 @@ MainWindow::MainWindow(QWidget *parent) {
 };
 
 
-/*
+/**
  * Function: displayMainMenu
  * Description: displays the main menu buttons (play, exit, sound, and store) and connects them to the appropriate functions
  * Parameters: no parameters
@@ -67,7 +67,7 @@ void MainWindow::displayMainMenu(){
 }
 
 
-/*
+/**
  * Function: handlePlayButton
  * Description: begins game by creating an instance of MainWindow class and deleting the current instance of Game (main menu)
  * Parameters: no parameters
@@ -88,7 +88,7 @@ void MainWindow::handlePlayButton()
 }
 
 
-/*
+/**
  * Function: handleQuitButton
  * Description: quits game by closing current window and deleting the current instance of main menu
  * Parameters: no parameters

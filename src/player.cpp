@@ -1,5 +1,6 @@
 
-/* Author: Joud Al-lahham
+/**
+ * Author: Joud Al-lahham
  * Description: Manages the player character's movements, including jumping and gravity, processes input for jump actions through the space bar, and updates the player's vertical position based on velocity and gravity.
  * Date: March 11, 2024
 */

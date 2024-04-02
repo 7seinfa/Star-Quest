@@ -1,4 +1,5 @@
-/* Author: Hussein Abdallah
+/**
+ *  Author: Hussein Abdallah
  * Description: obstacle class implements drectives, private, and public attributes and methods declared by Obstacle.h
  * Date: March 11, 2024
 */
@@ -8,7 +9,7 @@
 #include <QScreen>
 #include <stdlib.h>
 
-/*
+/**
  * Function: Obstacle Constructor
  * Description: constructor is used to create an obstacle with an image and geometry attributes
  * Parameters:
@@ -25,7 +26,7 @@ Obstacle::Obstacle(QPixmap sprMap, int x, int y, int width, QWidget* parent)
     else setHeight(QGuiApplication::screens()[0]->availableGeometry().height()-y);
 };
 
-/*
+/**
  * Function: update
  * Description: update function run periodically according to a QTimer declared in the main Game class
  * Parameters: 

@@ -1,11 +1,12 @@
-/* Author: Hussein Abdallah
+/**
+ *  Author: Hussein Abdallah
  * Description: object class implements drectives, private, and public attributes and methods declared by Object.h
  * Date: March 11, 2024
 */
 
 #include "headers/Object.h"
 
-/*
+/**
  * Function: Object Constructor
  * Description: constructor is used to create an object with an image and geometry attributes
  * Parameters:
@@ -25,7 +26,7 @@ Object::Object(QPixmap sprMap, int x, int y, int width, int height, QWidget* par
     setSizePolicy(QSizePolicy::Ignored, QSizePolicy::Ignored);
 }
 
-/*
+/**
  * Function: getX
  * Description: getter function for the x location of this Object
  * Parameters: no parameters required
@@ -35,7 +36,7 @@ int Object::getX() {
     return pos().x();
 }
 
-/*
+/**
  * Function: getY
  * Description: getter function for the y location of this Object
  * Parameters: no parameters required
@@ -45,7 +46,7 @@ int Object::getY() {
     return pos().y();
 }
 
-/*
+/**
  * Function: getWidth
  * Description: getter function for the width of this Object
  * Parameters: no parameters required
@@ -55,7 +56,7 @@ int Object::getWidth() {
     return size().width();
 }
 
-/*
+/**
  * Function: getHeight
  * Description: getter function for the height of this Object
  * Parameters: no parameters required
@@ -66,7 +67,7 @@ int Object::getHeight() {
 }
 
 
-/*
+/**
  * Function: setX
  * Description: setter function for the x position of this Object
  * Parameters: 
@@ -78,7 +79,7 @@ void Object::setX(int newX){
     setGeometry(x,getY(),getWidth(),getHeight());
 }
 
-/*
+/**
  * Function: setY
  * Description: setter function for the y position of this Object
  * Parameters: 
@@ -90,7 +91,7 @@ void Object::setY(int newY){
     setGeometry(getX(),y,getWidth(),getHeight());
 }
 
-/*
+/**
  * Function: setWidth
  * Description: setter function for the y position of this Object
  * Parameters: 
@@ -102,7 +103,7 @@ void Object::setWidth(int newWidth){
     setGeometry(getX(),getY(),newWidth,getHeight());
 }
 
-/*
+/**
  * Function: setHeight
  * Description: setter function for the y position of this Object
  * Parameters: 

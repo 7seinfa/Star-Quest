@@ -1,7 +1,8 @@
-/* Author: Hussein Abdallah
+/**
+ * Author: Hussein Abdallah
  * Description: game class implements drectives, private, and public attributes and methods declared by Game.h
  * Date: March 11, 2024
-*/
+ */
 
 //header file for this
 #include "headers/Game.h"
@@ -17,7 +18,7 @@
 #include <QMessageBox>
 #include <QPushButton>
 
-/*
+/**
  * Function: Game Constructor
  * Description: constructor is used to set up the window of the game
  * Parameters:
@@ -67,7 +68,7 @@ Game::Game(QWidget *parent)
     player = new Player(spaceshipPixmap, initialX, initialY, spaceshipWidth, spaceshipHeight, gravity, jump, this);
 }
 
-/*
+/**
  * Function: keyPressEvent
  * Description: used to receive key presses to notify player
  * Parameters:
@@ -80,7 +81,7 @@ void Game::keyPressEvent(QKeyEvent *event) {
     }
 }
 
-/*
+/**
  * Function: keyReleaseEvent
  * Description: used to receive key releases to notify player
  * Parameters:
@@ -93,25 +94,32 @@ void Game::keyReleaseEvent(QKeyEvent *event) {
     }
 }
 
-/*
- * Function: update
- * Description: runs periodically, time between each run set by QTimer in the constructor function
- * Parameters: no parameters
- * Return: no value returned
+/** periodically update relevant attributes
+ *
+ * runs periodically, time between each run set by QTimer in the constructor function
+ *
+ * updates the obstacles position
+ * updates the player's score (if passing and obstacle)
+ * updates the game state (if the player collided with an object) to 'game over'
+ *
+ * @authors Joud Al-lahham, Theo Mulder, Hussein Abdallah
+ * @param no parameters
+ * @return no value returned
  */
 void Game::update(){
     //background->update();
     for (unsigned int i = 0; i < obstacles.size()/2; i++) {
-        // update obstacles
+        /// update obstacles
         obstacles.at(2*i)->update(0);
         obstacles.at(2*i+1)->update(obstacles.at(2*i)->getHeight()+obstacleGap);
 
-        // update player score (if passing an obstacle)
-        if (obstacles.at(2*i)->getX() + (obstacles.at(2*i)->getWidth() / 2) == player->getX()) {
+        /// update player score (if passing an obstacle)
+        int obstaclesPosition = (obstacles.at(2*i)->getX() + (obstacles.at(2*i)->getWidth() / 2));
+        if (obstaclesPosition == player->getX()) {
             score->updateScore(score->getScore()+1);
         }
 
-        // if player hits an obstacle, display the 'game over' screen
+        /// if player hits an obstacle, display the 'game over' screen
         if (player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i))) || 
             player->collidesWith(dynamic_cast<Object*>(obstacles.at(2 * i + 1))) || 
             player->getY() > QGuiApplication::screens()[0]->availableGeometry().height() || 
@@ -123,11 +131,13 @@ void Game::update(){
     }
 }
 
-/*
+/**
  * Function: gameOver
  * Description: Displays a game over popup with options to restart the game or exit.
- * Parameters: no parameters
- * Return: no value returned
+ *
+ * @author Joud Al-lahham
+ * @param no parameters
+ * @return no value returned
  */
 void Game::gameOver() {
     QMessageBox msgBox;
@@ -157,11 +167,13 @@ void Game::gameOver() {
     }
 }
 
-/*
+/**
  * Function: restartGame
  * Description: Resets the game to its initial state, including player position and score.
- * Parameters: no parameters
- * Return: no value returned
+ *
+ * @author Joud Al-lahham
+ * @param no parameters
+ * @return no value returned
  */
 void Game::restartGame() {
     player->setX(100);
@@ -171,12 +183,14 @@ void Game::restartGame() {
     resetObstacles();
 }
 
-/*
+/**
  * Function: resetObstacles
  * Description: iterates through all the obstacles in the game and assigns them
  * new X positions and random heights to ensure the game is brand new when restarted.
- * @param None
- * @return void
+ *
+ * @author Joud Al-lahham
+ * @param no parameters
+ * @return no value returned
  */
 void Game::resetObstacles() {
     int firstObstacleX = 600; 

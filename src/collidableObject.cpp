@@ -1,4 +1,5 @@
-/* Author: Hussein Abdallah
+/**
+ *  Author: Hussein Abdallah
  * Description: collidableObject class implements drectives, private, and public attributes and methods declared by CollidableObject.h
  * Date: March 11, 2024
 */
@@ -7,7 +8,7 @@
 #include <QGuiApplication>
 #include <QScreen>
 
-/*
+/**
  * Function: CollidableObject Constructor
  * Description: constructor is used to create a collidable object with an image and geometry attributes
  * Parameters:
