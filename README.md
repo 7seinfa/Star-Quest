@@ -10,7 +10,7 @@ Prerequisities
 Building the project
 --------------------
 - Clone the project
-    - git clone https://repo.csd.uwo.ca/scm/compsci3307_w2024/group8.git
+    - git clone https://github.com/7seinfa/Star-Quest.git/
 
 - Change directory to project directory
 
